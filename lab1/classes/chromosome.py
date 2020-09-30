@@ -1,5 +1,5 @@
 import random as r
-import f as f
+from lab1 import f as f
 
 
 class chromosome:
@@ -27,6 +27,25 @@ class chromosome:
             self.genes[i] = r.randint(mrange, self.range)
         self.fitness = f.s_fitness(self.genes)
         return self
+
+    def mutation_gene(self, delta = 10):
+        """Проверка на вероятность мутации р=0.3 если меньше 4 то мутации не будет"""
+        a = 1
+        if r.randint(1, 10) < 4:
+            return
+        """Изменение коэффициента перед числом из интервалаа"""
+        if r.randint(0, 1) == 1:
+            a = -1
+        """Наша дельта"""
+        k = r.randint(1, delta)
+        """Номер изменяемого гена"""
+        n = r.randint(0, self.n - 1)
+        self.genes[n] += a * k
+
+    def get_fitness(self):
+        res = self.function_fitness(self.genes)
+        self.fitness = res
+        return res
 
     def print(self):
         print(self.genes)
